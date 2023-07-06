@@ -42,46 +42,42 @@ class _NavSideBarState extends State<NavSideBar> {
     return Drawer(
       backgroundColor: const Color(0xff333333),
       child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 35),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 36),
         children: [
-          Row(
-            children: [
-              IconButton(
-                padding: EdgeInsets.symmetric(vertical: 15,),
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  color: Color(0xffFFFFFF),
-                  size: 30,
-                ),
-              ),
-              Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 18),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Pesquise aqui',
-                        hintStyle: TextStyle(
-                            fontSize: 18, color: Color(0x50FFFFFF)),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.only(),
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 2.0,
+
+          Container(
+              padding: EdgeInsets.only(top: 30, bottom: 15),
+              child: Row(
+                children: [
+                  Icon(Icons.search, color: Colors.white,),
+                  SizedBox(width: 18,),
+                  Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 0),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Pesquise aqui',
+                            hintStyle: TextStyle(fontSize: 18, color: Color(0x50FFFFFF)),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.only(),
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.only(),
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2.0,
+                              ),
+                            ),
                           ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.only(),
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-              ),
-            ],
+                      )
+                  ),
+                ],
+              )
           ),
 
           ElevatedButton(

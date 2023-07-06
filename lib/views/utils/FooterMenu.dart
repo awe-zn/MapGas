@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 
 class FooterMenu extends StatefulWidget {
   final void Function(String)? onItemTapped;
-  const FooterMenu({Key? key, this.onItemTapped}) : super(key: key);
+  final void Function(int)? slidePage;
+
+  const FooterMenu({
+    Key? key,
+    this.onItemTapped,
+    this.slidePage
+  }) : super(key: key);
 
   @override
   State<FooterMenu> createState() => _FooterMenuState();
@@ -42,24 +48,34 @@ class _FooterMenuState extends State<FooterMenu> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                onPressed:() => {
-                  onTapButton(0)
+                onPressed:()  {
+                  onTapButton(0);
+                  widget.slidePage!(0);
                 },
                 icon: Icon(Icons.home),
                 color: _selectedButtonIndex == 0 ? Color(0xff656565):Color(0xffBDBDBD),
               ),
               IconButton(
-                onPressed: () => onTapButton(1),
+                onPressed: ()  {
+                  onTapButton(1);
+                  widget.slidePage!(0);
+                },
                 icon: Icon(Icons.map),
                 color: _selectedButtonIndex == 1 ? Color(0xff656565):Color(0xffBDBDBD),
               ),
               IconButton(
-                onPressed: () => onTapButton(2),
+                onPressed: ()  {
+                  onTapButton(2);
+                  widget.slidePage!(0);
+                },
                 icon: Icon(Icons.local_gas_station),
                 color: _selectedButtonIndex == 2 ? Color(0xff656565):Color(0xffBDBDBD),
               ),
               IconButton(
-                onPressed: () => onTapButton(3),
+                onPressed: () {
+                  onTapButton(3);
+                  widget.slidePage!(1);
+                },
                 icon: Icon(Icons.info),
                 color: _selectedButtonIndex == 3 ? Color(0xff656565):Color(0xffBDBDBD),
               ),

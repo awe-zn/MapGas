@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mapgas/views/About.dart';
 import 'package:mapgas/views/SideBar.dart';
 import 'package:mapgas/views/GoogleMapsBody.dart';
 import 'package:mapgas/views/utils/FooterMenu.dart';
@@ -43,12 +44,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  int _pageIndex = 0;
+  late PageController pc;
   String _title = 'Regiões verdes';
 
   void _updateTitle(String newTitle) {
     setState(() {
       _title = newTitle;
     });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    pc = PageController(initialPage: _pageIndex);
   }
 
   @override
@@ -64,19 +74,34 @@ class _MyHomePageState extends State<MyHomePage> {
       extendBody: true,
       appBar: top_menu(_scaffoldKey, _title),
       bottomNavigationBar: FooterMenu(
+        slidePage: (pagina) {
+          pc.animateToPage(
+              pagina,
+              duration: Duration(milliseconds: 400),
+              curve: Curves.ease
+          );
+        },
         onItemTapped: (title) {
           _updateTitle(title);
           _scaffoldKey.currentState?.closeDrawer();
         },
       ),
       // body: RegisterGasStation(),
-      body: Stack(
-        alignment: AlignmentDirectional.topCenter,
-        children: <Widget>[
-          GoogleMapsBody(),
-          textField(),
+      body: PageView(
+        physics: new NeverScrollableScrollPhysics(),
+        controller: pc,
+        children: [
+          Stack(
+            alignment: AlignmentDirectional.topCenter,
+            children: <Widget>[
+              GoogleMapsBody(),
+              textField(),
+            ],
+          ),
+          About()
         ],
-      ),
+      )
+
     );
   }
 }

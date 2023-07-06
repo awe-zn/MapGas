@@ -14,7 +14,7 @@ class RegisterStation extends StatefulWidget {
 
 class _RegisterStationState extends State<RegisterStation> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String _title = 'Regiões verdes';
+  String _title = 'Registrar Posto';
 
   void _updateTitle(String newTitle) {
     setState(() {
