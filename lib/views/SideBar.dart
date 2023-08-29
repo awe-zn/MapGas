@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mapgas/views/AnalysesHome.dart';
 import 'RegisterStation.dart';
 
 class NavSideBar extends StatefulWidget {
   final void Function(String)? onItemTapped;
-  const NavSideBar({Key? key, this.onItemTapped}) : super(key: key);
+  final void Function(int)? slidePage;
+  const NavSideBar({
+    Key? key,
+    this.onItemTapped,
+    this.slidePage
+  }) : super(key: key);
 
   @override
   State<NavSideBar> createState() => _NavSideBarState();
@@ -155,7 +161,13 @@ class _NavSideBarState extends State<NavSideBar> {
           ),
 
           ElevatedButton(
-              onPressed: () => onTapButton(4),
+              onPressed: () {
+                onTapButton(4);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AnalysesHome())
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -174,7 +186,10 @@ class _NavSideBarState extends State<NavSideBar> {
           ),
 
           ElevatedButton(
-              onPressed: () => onTapButton(5),
+              onPressed: () {
+                onTapButton(5);
+                widget.slidePage!(1);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 elevation: 0,

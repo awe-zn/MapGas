@@ -5,6 +5,7 @@ import 'package:mapgas/views/About.dart';
 import 'package:mapgas/views/SideBar.dart';
 import 'package:mapgas/views/GoogleMapsBody.dart';
 import 'package:mapgas/views/utils/FooterMenu.dart';
+import 'package:mapgas/views/utils/TopMenu.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int _pageIndex = 0;
+  final int _pageIndex = 0;
   late PageController pc;
   String _title = 'Regiões verdes';
 
@@ -66,18 +67,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: NavSideBar(
+        slidePage: (page)=>{
+          pc.animateToPage(
+              page,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.ease
+          )
+        },
           onItemTapped: (title) {
             _updateTitle(title);
             _scaffoldKey.currentState?.closeDrawer();
           },
       ),
       extendBody: true,
-      appBar: top_menu(_scaffoldKey, _title),
+      appBar: TopMenu(scaffoldKey: _scaffoldKey, title: _title),
       bottomNavigationBar: FooterMenu(
+        isHome: true,
         slidePage: (pagina) {
           pc.animateToPage(
               pagina,
-              duration: Duration(milliseconds: 400),
+              duration: const Duration(milliseconds: 400),
               curve: Curves.ease
           );
         },
@@ -94,11 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
           Stack(
             alignment: AlignmentDirectional.topCenter,
             children: <Widget>[
-              GoogleMapsBody(),
+              const GoogleMapsBody(),
               textField(),
             ],
           ),
-          About()
+          const About()
         ],
       )
 
@@ -120,7 +129,7 @@ Padding textField(){
         filled: true,
         fillColor: Color(0x460A0A0A),
         border: InputBorder.none,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontSize: 14,
           color: Color(0xffFFFFFF),
         ),
@@ -130,39 +139,3 @@ Padding textField(){
 
 }
 
-PreferredSizeWidget top_menu(GlobalKey<ScaffoldState> key, String title){
-  final GlobalKey<ScaffoldState> scaffoldKey = key;
-
-  return AppBar(
-    title: Text(
-      title,
-      style: const TextStyle(
-        color: Color(0xff4F4F4F),
-        fontSize: 15,
-        fontWeight: FontWeight.w500
-      ),
-    ),
-    centerTitle: true,
-    backgroundColor: const Color(0xffFCFCFC),
-    actions: [
-      IconButton(
-          onPressed: (){
-            scaffoldKey.currentState?.openDrawer();
-          },
-          icon: Icon(Icons.menu),
-          color: Color(0xff000000),
-      )
-    ],
-    leading: Padding(
-      padding: const EdgeInsets.only(top: 8, left: 12),
-      child: Text(
-        'Map \nGás',
-        style: GoogleFonts.montserrat(
-          fontWeight: FontWeight.w800,
-          color: const Color(0xff4F4F4F),
-          fontSize: 15.0
-        ),
-      ),
-    ),
-  );
-}

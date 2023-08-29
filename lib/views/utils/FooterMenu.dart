@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class FooterMenu extends StatefulWidget {
   final void Function(String)? onItemTapped;
   final void Function(int)? slidePage;
+  final bool? isHome;
 
   const FooterMenu({
     Key? key,
     this.onItemTapped,
-    this.slidePage
+    this.slidePage,
+    this.isHome
   }) : super(key: key);
 
   @override
@@ -38,6 +40,41 @@ class _FooterMenuState extends State<FooterMenu> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> homeFooterMenuIcons = [
+      IconButton(
+        onPressed:()  {
+          onTapButton(0);
+          widget.slidePage!(0);
+        },
+        icon: Icon(Icons.home),
+        color: _selectedButtonIndex == 0 ? Color(0xff656565):Color(0xffBDBDBD),
+      ),
+      IconButton(
+        onPressed: ()  {
+          onTapButton(1);
+          widget.slidePage!(0);
+        },
+        icon: Icon(Icons.map),
+        color: _selectedButtonIndex == 1 ? Color(0xff656565):Color(0xffBDBDBD),
+      ),
+      IconButton(
+        onPressed: ()  {
+          onTapButton(2);
+          widget.slidePage!(0);
+        },
+        icon: Icon(Icons.local_gas_station),
+        color: _selectedButtonIndex == 2 ? Color(0xff656565):Color(0xffBDBDBD),
+      ),
+      IconButton(
+        onPressed: () {
+          onTapButton(3);
+          widget.slidePage!(1);
+        },
+        icon: Icon(Icons.info),
+        color: _selectedButtonIndex == 3 ? Color(0xff656565):Color(0xffBDBDBD),
+      ),
+    ];
+
     return BottomAppBar(
       color: const Color(0xffFCFCFC),
       child: IconTheme(
@@ -46,44 +83,10 @@ class _FooterMenuState extends State<FooterMenu> {
           padding: EdgeInsets.all(5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                onPressed:()  {
-                  onTapButton(0);
-                  widget.slidePage!(0);
-                },
-                icon: Icon(Icons.home),
-                color: _selectedButtonIndex == 0 ? Color(0xff656565):Color(0xffBDBDBD),
-              ),
-              IconButton(
-                onPressed: ()  {
-                  onTapButton(1);
-                  widget.slidePage!(0);
-                },
-                icon: Icon(Icons.map),
-                color: _selectedButtonIndex == 1 ? Color(0xff656565):Color(0xffBDBDBD),
-              ),
-              IconButton(
-                onPressed: ()  {
-                  onTapButton(2);
-                  widget.slidePage!(0);
-                },
-                icon: Icon(Icons.local_gas_station),
-                color: _selectedButtonIndex == 2 ? Color(0xff656565):Color(0xffBDBDBD),
-              ),
-              IconButton(
-                onPressed: () {
-                  onTapButton(3);
-                  widget.slidePage!(1);
-                },
-                icon: Icon(Icons.info),
-                color: _selectedButtonIndex == 3 ? Color(0xff656565):Color(0xffBDBDBD),
-              ),
-            ],
+            children: widget.isHome! ? homeFooterMenuIcons : [],
           ),
         ),
       ),
     );;
   }
-
 }

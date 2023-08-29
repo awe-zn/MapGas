@@ -35,6 +35,7 @@ class _RegisterStationState extends State<RegisterStation> {
       extendBody: true,
       appBar: top_menu(_scaffoldKey, _title),
       bottomNavigationBar: FooterMenu(
+        isHome: true,
         onItemTapped: (title) {
           _scaffoldKey.currentState?.closeDrawer();
           _updateTitle(title);
