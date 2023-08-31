@@ -17,7 +17,8 @@ class _GoogleMapsBodyState extends State<GoogleMapsBody> {
         future: _determineLoc(),
         builder: (context, snapshot){
           if(snapshot.hasData) {
-            // return Center(child: Text('${snapshot.data.latitude}'));
+            Position data = snapshot.data as Position;
+            // return Center(child: Text('${data.latitude}'));
             return GoogleMap(
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
@@ -25,7 +26,7 @@ class _GoogleMapsBodyState extends State<GoogleMapsBody> {
               padding: const EdgeInsets.only(bottom: 60.0),
               initialCameraPosition: CameraPosition(
                   zoom: 15.0,
-                  target: LatLng(snapshot.data!.latitude, snapshot.data!.longitude)
+                  target: LatLng(data.latitude, data.longitude)
               ),
             );
           }
